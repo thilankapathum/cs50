@@ -14,11 +14,10 @@ class Credit{
 
         sc.close();
 
-        
-        long max = 100000000000000000L;
+        long max = 100000000000000000L; // Maximum value that a credit card can get/10
         //long num = 54003600000000014L; 378282246310005 30569309025904 4222222222222
 
-        // Check for long inputs > 16 digits:
+        // Check for long inputs < 16 digits:
         if (num*10<max){
 
             int numberArray[] = new int[16];
@@ -35,43 +34,48 @@ class Credit{
                 k++;
             }
 
+            // Print digits of number in reverse order:
             System.out.print("NUMBER ARRAY: ");
-
             for(int l=0;l<16;l++){
                 System.out.print(numberArray[l]);
             }
 
+
             // Calculate checksum:
+            //int productsArray[]=new int[8];
+            int othersSum = 0, numberSumP=0;
 
-            int n[]=new int[8];
-            int productsSum = 0;
-            int othersSum = 0;
-
-            for(int m=1,p=0;m<16;m+=2,p++){
-                //n+=2*numberArray[m];
-                
+            // Calulate sum of products of odd locations and store in numberSumP:
+            for(int m=1;m<16;m+=2){
 
                 if(2*numberArray[m]<10){
-                    n[p] = 2*numberArray[m];
+                    //productsArray[p] = 2*numberArray[m];
+                    numberSumP += 2*numberArray[m];
                 }else{
-                    n[p]= 2*numberArray[m]-9;
+                    //productsArray[p]= 2*numberArray[m]-9;
+                    numberSumP += 2*numberArray[m]-9;
+
                 }
 
             }
-            System.out.print("Products Sum: ");
+            //System.out.print("Products Sum: ");
 
-            for(int i=0;i<8;i++){
-                System.out.print(n[i] + "-");
-                productsSum += n[i];
-            }
+            // NOT NEEDED:
+        /*    for(int i=0;i<8;i++){
+                System.out.print(productsArray[i] + "-");
+                productsSum += productsArray[i];
+            } */
 
+            // Calculate sum of even locations and store in othersSum:
             for(int i=0;i<16;i+=2){
                 othersSum += numberArray[i];
+                //numberSumS += numberArray[i];
             }
 
-            System.out.println("Products Sum: "+productsSum);
-            System.out.println("Others Sum: "+othersSum);
-            System.out.println("Total: " + (othersSum+productsSum));
+            //System.out.println("Products Sum: "+productsSum);
+            //System.out.println("Others Sum: "+othersSum);
+            //System.out.println("Total: " + (othersSum+productsSum));
+            System.out.println("Total NUMBERSUM: " + (numberSumP+othersSum));
 
         }else{
             System.out.println("Number out of range");
