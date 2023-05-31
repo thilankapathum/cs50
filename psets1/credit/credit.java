@@ -5,16 +5,16 @@ import java.util.Scanner;
 // Visa 13 16 digits: 4
 
 class Credit{
+    
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        long num = 4003600000000014L;
 
         System.out.println("Enter Credit Card Number: ");
         String userInput = sc.nextLine();
 
-        num = Long.parseLong(userInput);
+        long num = Long.parseLong(userInput);
 
         sc.close();
 
@@ -38,30 +38,42 @@ class Credit{
                 k++;
             }
 
-            // Calculate checksum:
-            int othersSum = 0, numberSumP=0;
+            k=0; // return k to 0 prevent becoming garbage
 
-            // Calulate sum of products of odd locations and store in numberSumP:
+            int checkSum = 0;
+
+            // Calulate checkSum:
             for(int m=1;m<16;m+=2){
 
+                checkSum += numberArray[m-1]; // sum even numbered positions
+
+                // Sum odd numbered positions:
                 if(2*numberArray[m]<10){
-                    numberSumP += 2*numberArray[m]; 
+                    checkSum += 2*numberArray[m]; 
                 }else{
-                    numberSumP += 2*numberArray[m]-9; // Check for multiplications > 10 to add those digits
+                    checkSum += 2*numberArray[m]-9; // Check for multiplications > 10 to add those digits
                 }
             }
 
-            // Calculate sum of even locations and store in othersSum:
-            for(int i=0;i<16;i+=2){
-                othersSum += numberArray[i];
-            }
+            // System.out.println("Total CHECKSUM: " + (checkSum));
 
-            System.out.println("Total NUMBERSUM: " + (numberSumP+othersSum));
+            // Check for Card Validity:
+            if(numberArray[15]==5 && numberArray[14]>0 && numberArray[14]<6 && checkSum%10==0){
+                System.out.println("MASTERCARD");
+            }
+            else if(numberArray[15]==0 && numberArray[14]==3 && (numberArray[13]==7 || numberArray[13]==4 && checkSum%10==0)){
+                System.out.println("AMEX");
+            }else if(numberArray[15]==4 && checkSum%10==0){
+                System.out.println("VISA");
+            }else if(numberArray[15]==0 && numberArray[14]==0 && numberArray[13]==0 && numberArray[12]==4 && checkSum%10==0){
+                System.out.println("VISA");
+            }else{
+                System.out.println("INVALID!!"); 
+            } 
 
         }else{
-            System.out.println("Number out of range");
+            System.out.println("INVALID!");
         }
-        
-
     }
+    
 }
