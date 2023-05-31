@@ -16,7 +16,7 @@ class Credit{
 
         
         long max = 100000000000000000L;
-        //long num = 54003600000000014L;
+        //long num = 54003600000000014L; 378282246310005 30569309025904 4222222222222
 
         // Check for long inputs > 16 digits:
         if (num*10<max){
@@ -43,11 +43,35 @@ class Credit{
 
             // Calculate checksum:
 
-            int n=0;
-            for(int m=1;m<16;m+=2){
-                n+=2*numberArray[m];
+            int n[]=new int[8];
+            int productsSum = 0;
+            int othersSum = 0;
+
+            for(int m=1,p=0;m<16;m+=2,p++){
+                //n+=2*numberArray[m];
+                
+
+                if(2*numberArray[m]<10){
+                    n[p] = 2*numberArray[m];
+                }else{
+                    n[p]= 2*numberArray[m]-9;
+                }
+
             }
-            System.out.print("Checksum: " + n);
+            System.out.print("Products Sum: ");
+
+            for(int i=0;i<8;i++){
+                System.out.print(n[i] + "-");
+                productsSum += n[i];
+            }
+
+            for(int i=0;i<16;i+=2){
+                othersSum += numberArray[i];
+            }
+
+            System.out.println("Products Sum: "+productsSum);
+            System.out.println("Others Sum: "+othersSum);
+            System.out.println("Total: " + (othersSum+productsSum));
 
         }else{
             System.out.println("Number out of range");
