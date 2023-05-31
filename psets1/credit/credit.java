@@ -19,7 +19,7 @@ class Credit{
         //long num = 54003600000000014L;
 
         // Check for long inputs > 16 digits:
-        if (num<max){
+        if (num*10<max){
 
             int numberArray[] = new int[16];
             int k = 0;
