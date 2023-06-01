@@ -3,43 +3,34 @@ class Llama{
     public static void main(String[] args) 
     {
 
+        // method to return number of years
+        int startPopulation = population(9, "Enter Start Size: ");
+        int endPopulation = population(startPopulation, "Enter End Size: ");
+
+        int i = 0;
+        for(i = 0; startPopulation <= endPopulation; i++)
+        {
+            startPopulation = startPopulation + startPopulation/3 - startPopulation/4 - startPopulation%3 + startPopulation%4;
+        }
+
+        System.out.println("Years: " + i);
+
+    }
+
+    static int population(int rightValue, String propmptText)
+    {
+        
         // Create Scanner object to get user input
         Scanner sc = new Scanner(System.in);
-        String userInputString;
-
-        // Initialize variables
-        int startSize = 0;
-        int endSize = 0;
-        int i = 0;
+        int leftValue=0;
 
         do
         {
-            System.out.println("Enter Start Size: ");
-            userInputString = sc.nextLine();
+            System.out.println(propmptText);
+            leftValue = sc.nextInt();
 
-            // Parse user input from String to int
-            startSize = Integer.parseInt(userInputString);
+        } while(leftValue < rightValue);
 
-        } while(startSize < 9);
-
-        do
-        {
-            System.out.println("Enter End Size: ");
-            userInputString = sc.nextLine();
-
-            // Parse user input from String to int
-            endSize = Integer.parseInt(userInputString);
-
-        } while(endSize < startSize);
-        
-        sc.close();
-
-        for(i = 0; startSize <= endSize; i++)
-        {
-            startSize = startSize + startSize/3 - startSize/4 - startSize%3 + startSize%4;
-        }
-        
-        System.out.println("Years: " + i);
-    
+        return leftValue;
     }
 }

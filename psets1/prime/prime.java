@@ -8,10 +8,7 @@ class Prime
         // Create Scanner object to get user input
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter number: ");
-        String userInputString = sc.nextLine();
-
-        // Parse user input from String to int
-        int userInput = Integer.parseInt(userInputString);
+        int userInput = sc.nextInt();
 
         sc.close();
 
