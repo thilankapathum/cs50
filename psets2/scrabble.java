@@ -1,4 +1,4 @@
-package psets2;
+//package psets2;
 import java.util.Scanner;
 
 class Scrabble
