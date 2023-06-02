@@ -30,7 +30,7 @@ class Llama{
             leftValue = sc.nextInt();
 
         } while(leftValue < rightValue);
-
+        //sc.close();
         return leftValue;
     }
 }
