@@ -6,8 +6,15 @@ class Novowels
     {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter word: ");
-        String userInputString = sc.nextLine();
+        String userInputString = "";
+
+        // Check for empty inputs
+        do
+        {
+            System.out.println("Enter word: ");
+            userInputString = sc.nextLine();
+        }
+        while(userInputString.isEmpty());
 
         // use replace method to get result
         String userOutString = replace(userInputString);
@@ -19,7 +26,9 @@ class Novowels
 
     static String replace(String userInput)
     {
+        // Enter letters to a char array
         char[] words = userInput.toCharArray();
+
         for(int i = 0; i < userInput.length(); i++)
         {
             switch(words[i])
@@ -42,12 +51,11 @@ class Novowels
 
                 default:
                     break;
-
             }
         }
 
-        // toString working should be checked
-        String reString = words.toString();
+        // Convert char array to String
+        String reString = new String(words);
         return reString;
     }
 }
