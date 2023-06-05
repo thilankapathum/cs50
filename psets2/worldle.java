@@ -70,9 +70,10 @@ class Wordle
             } 
 
             System.out.println();
-            
+
             if(matched)
             {
+                System.out.println("You Won!");
                 break;
             }
         }
