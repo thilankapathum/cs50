@@ -51,8 +51,10 @@ class Temps
         }
 
         // Sort using Selection Sort
-        sortCitiesSelection(temps);
+        //sortCitiesSelection(temps);
+        sortCitiesBubble(temps);
     }
+
 
     static void sortCitiesSelection(avgTemp[] temps)
     {
@@ -92,12 +94,41 @@ class Temps
 
     }
 
+
     static void sortCitiesBubble(avgTemp[] temps)
     {
+        int tempsLength = temps.length;
+        avgTemp tempsPlaceholder = new avgTemp();
+        int swapCounter = 0;
+
+        do{
+            swapCounter = 0;
+            for(int i = 0; i < tempsLength-1; i++)
+            {
+
+                // Check next temperature smaller than current
+                if(temps[i].temp > temps[i+1].temp)
+                {
+                    // Swap current and next temperatures
+                    tempsPlaceholder = temps[i+1];
+                    temps[i+1] = temps[i];
+                    temps[i] = tempsPlaceholder;
+                    swapCounter++;
+                }
+            }
+        }
+        while(swapCounter > 0); // Do until no swaps occur
         
-    }
-    
+
+        // Print sorted array
+        System.out.println("\nSorted List (Bubble): ");
+        for(int i = tempsLength; i > 0; i--)
+        {
+            System.out.println(temps[i-1].city + ": " + temps[i-1].temp);
+        }
+    }   
 }
+
 
 class avgTemp
 {
