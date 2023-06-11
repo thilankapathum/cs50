@@ -51,13 +51,16 @@ class Temps
         }
 
         // Sort using Selection Sort
-        //sortCitiesSelection(temps);
-        sortCitiesBubble(temps);
+        sortCitiesSelection(temps);
+
+        // Sort using Bubble Sort
+        //sortCitiesBubble(temps);
     }
 
 
     static void sortCitiesSelection(avgTemp[] temps)
     {
+        int loops = 0;
         int avgTempLength = temps.length;
 
         int temporaryLocation = 0;
@@ -82,6 +85,7 @@ class Temps
                     temps[temporaryLocation] = temps[i];
                     temps[i] = tempsHolder;
                 }
+                loops++;
             }
         }
 
@@ -92,6 +96,8 @@ class Temps
             System.out.println(temps[i-1].city + ": " + temps[i-1].temp);
         }
 
+        System.out.println(loops);
+
     }
 
 
@@ -100,6 +106,7 @@ class Temps
         int tempsLength = temps.length;
         avgTemp tempsPlaceholder = new avgTemp();
         int swapCounter = 0;
+        int loops = 0;
 
         do{
             swapCounter = 0;
@@ -115,6 +122,7 @@ class Temps
                     temps[i] = tempsPlaceholder;
                     swapCounter++;
                 }
+                loops++;
             }
         }
         while(swapCounter > 0); // Do until no swaps occur
@@ -126,6 +134,8 @@ class Temps
         {
             System.out.println(temps[i-1].city + ": " + temps[i-1].temp);
         }
+
+        System.out.println(loops);
     }   
 }
 
