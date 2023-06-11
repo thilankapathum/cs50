@@ -23,7 +23,7 @@ class Wordle
         // Create array of Strings with each user input word
         String guessStringArray[] = new String[noOfTrys];
 
-        // Allow user to try for noOfTrys
+        // Allow user to try for 'noOfTrys'
         for(int k = 0; k < noOfTrys; k++)
         {
             // Get user input word
