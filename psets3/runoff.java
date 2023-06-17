@@ -71,6 +71,7 @@ class Runoff{
         }
     }
 
+    // Find Who got minimum Votes
     static int findMin(Candidates[] candidates){
         int minVotes = 2147483647;
         int candidateCount = candidates.length;
