@@ -1,46 +1,94 @@
+import java.util.Scanner;
+
 class Plurality{
     final int MAX = 9;
     public static void main(String[] args){
 
-        int candidatesCount = 3; // Get number of Candidates
+        int candidatesCount = 0; // Get number of Candidates
+        int votersCount = 0; // Get number of voters
 
-        //String[] candidatesName = new String[candidatesCount];
-        String[] candidatesName = {"Alice", "Charlie", "Bob"};
+        Scanner sc = new Scanner(System.in);
 
-        Candidate[] candidates = new Candidate[candidatesCount]; // Create candidates array
+        // Get candidates count
+        do{
+            try {
+                sc.reset();
+                System.out.print("Number of Candidates: ");
+                candidatesCount = sc.nextInt();
 
+            } catch (Exception e) {
+                sc.next();
+                continue;
+
+            } finally{
+                sc.nextLine();
+            }
+
+        }while(candidatesCount <= 0);
+        
+
+        String[] candidatesName = new String[candidatesCount];
+        
+        // Get Candidate Names
+        for(int i = 0; i < candidatesCount; i++){
+
+            System.out.println("Enter Candidate" + (i+1) + " Name: ");
+            candidatesName[i] = sc.nextLine();
+        }
+
+        Candidate[] candidates = new Candidate[candidatesCount]; // Create candidates object array
+
+        // Add candidate names for object array
         for(int i = 0; i < candidatesCount; i++){
             candidates[i] = new Candidate();
             candidates[i].name = candidatesName[i];
         }
 
-        int votersCount = 6;
+        // Get number of voters
+        do{
+            try {
+                sc.reset();
+                System.out.print("Number of Voters: ");
+                votersCount = sc.nextInt();
 
-        String[] votersPreference = {"Alice", "Alice", "Bob", "Bob", "Charlie", "Charlie"};
+            } catch (Exception e) {
+                sc.next();
+                continue;
 
-        for(int j = 0; j < votersCount; j++){
+            } finally{
+                sc.nextLine();
+            }
 
-            /* for(int i = 0; i < candidatesCount; i++){
-                if(votersPreference[j] == candidates[i].name){
-                    candidates[i].votes += 1;
-                }
-            } */
+        }while(votersCount <= 0);
 
-            vote(candidates,votersPreference[j]);
-            
+        String[] votersPreference = new String[votersCount];
+
+        // Get voter preferences (votes)
+        for(int i = 0; i < votersCount; i++){
+
+            boolean candidateAvailable = true;
+
+            do{
+                System.out.println("Enter Vote " + (i+1));
+                votersPreference[i] = sc.nextLine();
+                candidateAvailable = vote(candidates,votersPreference[i]);
+            } while(!candidateAvailable);
+
         }
-        
 
-
+        // Print all candidates and votes (not essential)
+        System.out.println();
         for(int i = 0; i < candidatesCount; i++){
-            System.out.println(candidates[i].name + candidates[i].votes);
+            System.out.println(candidates[i].name + " Votes: " + candidates[i].votes);
         }
 
         printWinner(candidates);
+
+        sc.close();
     }
 
     // Method to cast Vote
-    static void vote(Candidate[] candidates, String candidateName){
+    static boolean vote(Candidate[] candidates, String candidateName){
 
         int candidateCount = candidates.length;
         boolean candidateAvailable = false;
@@ -49,7 +97,7 @@ class Plurality{
         for(int i = 0; i < candidateCount; i++){
 
             // checking the voter input & candidate name
-            if(candidateName == candidates[i].name){
+            if(candidateName.equals(candidates[i].name)){
                 candidates[i].votes += 1;
                 candidateAvailable = true;
             }
@@ -60,6 +108,7 @@ class Plurality{
         if(!candidateAvailable){
             System.out.println("Candidate is Unavailable");
         }
+        return candidateAvailable;
     }
 
     // Print Winner(s)
