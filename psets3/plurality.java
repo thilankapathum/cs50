@@ -1,35 +1,42 @@
+class Plurality{
+    final int MAX = 9;
+    public static void main(String[] args){
 
-import java.util.Scanner;
+        int candidatesCount = 3; // Get number of Candidates
 
-class Plurality
-{
-    public static void main(String[] args)
-    {
-        System.out.println(getString("Hello"));
-    }
+        //String[] candidatesName = new String[candidatesCount];
+        String[] candidatesName = {"Alice", "Charile", "Bob"};
 
-    static String getString(String message)
-    {
-        Scanner sc = new Scanner(System.in);
-        String returnString = null;
+        Candidate[] candidates = new Candidate[candidatesCount]; // Create candidates array
 
-        try
-        {
-            System.out.println(message);
-            returnString = sc.nextLine();
+        for(int i = 0; i < candidatesCount; i++){
+            candidates[i] = new Candidate();
+            candidates[i].name = candidatesName[i];
         }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-        finally
-        {
-            sc.close();
+
+        int votersCount = 3;
+
+        String[] votersPreference = {"Alice", "Alice", "Bob"};
+
+        for(int j = 0; j < votersCount; j++){
+
+            for(int i = 0; i < candidatesCount; i++){
+                if(votersPreference[j] == candidates[i].name){
+                    candidates[i].votes += 1;
+                }
+            }
+            
         }
         
 
-        return returnString;
-        
-    }
 
+        for(int i = 0; i < candidatesCount; i++){
+            System.out.println(candidates[i].name + candidates[i].votes);
+        }
+    }
+}
+
+class Candidate{
+    String name;
+    int votes;
 }
