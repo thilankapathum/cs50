@@ -15,31 +15,37 @@ class Runoff{
             candidates[i] = new Candidates();
             candidates[i].name = candidatesStr[i];
             candidates[i].eliminated = false;
-            //System.out.println(candidates[i].name);
-            //System.out.println(candidates[i].eliminated);
         }
 
         // Create Voter's Preferences
         //int preferences[][] = new int[voterCount][candidateCount];
         //int preferences[][] = {{0,1,2},{0,2,1},{1,2,0},{1,0,2},{2,0,1}};
-        int preferences[][] = {{0,1,2},{0,2,1},{1,2,0},{1,0,2},{2,0,1}};
+        //int preferences[][] = {{0,1,2},{0,1,2},{0,2,1},{1,2,0},{1,2,0},{1,0,2},{2,0,1},{2,1,0}};
+        int preferences[][] = {{0,1,2},{0,1,2},{1,0,2},{1,0,2},{1,0,2},{2,0,1},{2,0,1},{2,1,0},{2,1,0}};
+
+        voterCount = preferences.length;
+
+        System.out.println("Candidates count: " + candidateCount);
+        System.out.println("Voters count: " + voterCount);
 
         // Vote
         vote(voterCount, preferences, candidates);
 
         // Check winner
-        //printWinner(candidates, voterCount);
-
-
-
         while(!printWinner(candidates, voterCount)){
+            
             // find Minimum Vote
             int minVotes = findMin(candidates);
-            System.out.println("Min votes: " + minVotes);
 
-            //System.out.println("Tie: " + tieCheck);
             if(isTie(candidateCount, candidates, minVotes)){
-                System.out.println("Tie");
+                System.out.println("Tie!");
+
+                // Print tied Candidates
+                for(int i = 0; i < candidateCount; i++){
+                    if(!candidates[i].eliminated){
+                        System.out.println(candidates[i].name);
+                    }
+                }
                 break;
             }
 
@@ -47,17 +53,10 @@ class Runoff{
             eliminate(minVotes, candidates,preferences);
         }
 
-        /* // find Minimum Vote
-        int minVotes = findMin(candidates);
-        System.out.println("Min votes: " + minVotes);
-
-        // Eliminate minimum voter
-        eliminate(minVotes, candidates,preferences); */
-
         // Print all candidates votes (temp)
-        for(int i = 0; i < candidateCount; i++){
+        /* for(int i = 0; i < candidateCount; i++){
             System.out.println(candidates[i].name + candidates[i].votes + candidates[i].eliminated);
-        }
+        } */
 
     }
 
@@ -65,7 +64,7 @@ class Runoff{
     static void vote(int voterCount, int preferences[][], Candidates[] candidates){
         for(int i = 0; i < voterCount; i++){
             int votedTo = preferences[i][0];
-            System.out.println(preferences[i][0]);
+            //System.out.println(preferences[i][0]);
 
             candidates[votedTo].votes++;
         }
@@ -91,18 +90,15 @@ class Runoff{
         // Checking for candidates with min Votes
         for(int i = 0; i < candidateCount; i++){
             if(candidates[i].votes == minVotes && !candidates[i].eliminated){
-                //System.out.println(candidates[i].name);
 
                 // Increase Votes for the next prefered candidate of the voter
                 for(int j = 0; j < prefLength; j++){
                     if(preferences[j][0] == i){
-                        //System.out.println(candidates[preferences[j][0]].name + candidates[preferences[j][0]].votes + candidates[preferences[j][0]].eliminated);
                         candidates[preferences[j][1]].votes++;
-                        //System.out.println(candidates[preferences[j][1]].name + candidates[preferences[j][1]].votes + candidates[preferences[j][1]].eliminated);
                     }
                 }
                 candidates[i].eliminated = true;
-                System.out.println(candidates[i].name + " is eliminated");
+                //System.out.println(candidates[i].name + " is eliminated");
 
             }
         }
@@ -121,10 +117,8 @@ class Runoff{
             }
         }
 
-        double percentage = (double)maxVotes/(double)voterCount;
-
-        // Check for 50% or more dominance
-        if(percentage > 0.5){
+        // Check for 50% and more dominance
+        if((double)maxVotes/(double)voterCount > 0.5){
             for(int i = 0; i < candidateCount; i++){
                 if(maxVotes == candidates[i].votes){
                     System.out.println("Winner: " + candidates[i].name);
@@ -133,33 +127,28 @@ class Runoff{
             }
             returnBoolean = true;
         }else{
-            System.out.println("No 50% winner");
+            //System.out.println("No 50% winner");
             returnBoolean = false;
         }
 
         return returnBoolean;
     }
 
+    // Check for Tie in votes
     static boolean isTie(int candidateCount, Candidates[] candidates, int minVotes){
+        
         boolean tieCheck = true;
         for(int i = 0; i < candidateCount; i++){
+
+            // Considering non-eliminated candidates only
             if(!candidates[i].eliminated){
-                    
                 if(candidates[i].votes == minVotes){
-                        
-                    //System.out.println(candidates[i].name + candidates[i].votes + candidates[i].eliminated);
                     tieCheck = tieCheck && true;
-                    //System.out.println(tieCheck);
                         
                 }else{
-                    //System.out.println(candidates[i].name + candidates[i].votes + candidates[i].eliminated);
                     tieCheck = false;
-                    //System.out.println(tieCheck);
                 }
-
-
             }
-                
         }
         return tieCheck;
     }
