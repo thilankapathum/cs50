@@ -1,11 +1,12 @@
 class Runoff{
     public static void main(String[] args){
         
-        int candidateCount = 3;
-        int voterCount = 5;
+        int candidateCount;
+        int voterCount;
 
         // Sample candidates
-        String[] candidatesStr = {"Alice", "Bob", "Charlie"};
+        String[] candidatesStr = {"Alice", "Bob", "Charlie","Donald"};
+        candidateCount = candidatesStr.length;
 
         // Create Candidates Object
         Candidates[] candidates = new Candidates[candidateCount];
@@ -17,11 +18,11 @@ class Runoff{
             candidates[i].eliminated = false;
         }
 
-        // Create Voter's Preferences
+        // Sample Voter's preferences
         //int preferences[][] = new int[voterCount][candidateCount];
         //int preferences[][] = {{0,1,2},{0,2,1},{1,2,0},{1,0,2},{2,0,1}};
         //int preferences[][] = {{0,1,2},{0,1,2},{0,2,1},{1,2,0},{1,2,0},{1,0,2},{2,0,1},{2,1,0}};
-        int preferences[][] = {{0,1,2},{0,1,2},{1,0,2},{1,0,2},{1,0,2},{2,0,1},{2,0,1},{2,1,0},{2,1,0}};
+        int preferences[][] = {{3,0,1,2},{0,1,3,2},{1,3,0,2},{3,1,0,2},{1,0,2,3},{2,0,3,1},{2,3,0,1},{3,2,1,0},{2,1,0,3}};
 
         voterCount = preferences.length;
 
